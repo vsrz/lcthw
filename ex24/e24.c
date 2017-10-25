@@ -1,4 +1,5 @@
 
+#include <stdlib.h>
 #include <stdio.h>
 #include "dbg.h"
 
@@ -27,8 +28,7 @@ int main(int argc, char **argv)
     char *in = NULL;
 
     printf ("What's your first name? ");
-    // in = fgets(you.first, MAX_DATA - 1, stdin);
-    in = gets(you.first);
+    in = fgets(you.first, MAX_DATA - 1, stdin);
     check(in != NULL, "Failed to read first name.");
 
     printf("What's your last name? ");
@@ -36,8 +36,11 @@ int main(int argc, char **argv)
     check(in != NULL, "Failed to read last name. ");
 
     printf("How old are you? ");
-    int rc = fscanf(stdin, "%d", &you.age);
+    char buf[MAX_DATA];
+    in = fgets(buf, MAX_DATA - 1, stdin);
+    int rc = atoi(buf);
     check(rc > 0, "You have to enter a number.");
+    you.age = rc;
 
     printf("What color are your eyes:\n");
     for (i = 0; i < COUNT; i++) {
@@ -46,16 +49,21 @@ int main(int argc, char **argv)
     printf("> ");
 
     int eyes = -1;
-    rc = fscanf(stdin, "%d", &eyes);
+    in = fgets(buf, MAX_DATA - 1, stdin);
+    rc = atoi(buf);
     check(rc > 0, "You have to enter a number.");
+    eyes = rc;
 
     you.eyes = eyes - 1;
     check(you.eyes < COUNT && you.eyes >= 0, "Do it right, that's not an option.");
 
     printf("How much in your wallet? ");
-    rc = fscanf(stdin, "%f", &you.income);
-    check(rc > 0, "Enter a floating point number");
+    // rc = fscanf(stdin, "%f", &you.income);
+    in = fgets(buf, MAX_DATA - 1, stdin);
+    float rcf = atof(buf);
+    check(rcf > 0.f, "Enter a floating point number");
     printf("------ RESULTS ------\n");
+    you.income = rcf;
 
     printf("First name: %s\nLast name: %s\nAge: %d\nEyes: %s\nMoney: %f\n", 
             you.first, you.last, you.age, EYE_COLOR_NAMES[you.eyes], you.income);
