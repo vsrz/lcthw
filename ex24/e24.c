@@ -21,8 +21,11 @@ typedef struct Person {
     float income;
 } Person;
 
+
 int main(int argc, char **argv)
 {
+    char *ch;
+    myscanf("%c", ch, 4);
     Person you = { .age = 0 };
     int i = 0;
     char *in = NULL;
