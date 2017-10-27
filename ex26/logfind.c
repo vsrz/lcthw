@@ -22,9 +22,11 @@ logfile* loadfile(char* filename)
 
 int main(int argc, char **argv)
 {
-    char* filename = "test.txt";
+    char* filename = "filetest.txt";
     logfile *log;
     log = loadfile(filename);
     printf("%s", log->path);
     return 0;
 }
+
+
