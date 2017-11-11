@@ -24,10 +24,10 @@ logfile* loadfile(char* filename)
 int readfile(logfile *l)
 {
     l->fp = fopen(l->path, "r");
-    if (l->fp == 0) {
+    if (l->fp != 0) {
         return 0;
     } else { 
-        printf("Error %d encountered while loading file %s", errno, l->path);
+        printf("Error %d encountered while loading file %s\n", errno, l->path);
     }
     return 1;
 }
@@ -35,7 +35,7 @@ int readfile(logfile *l)
 int main(int argc, char **argv)
 {
     char* filename = "filetest.txt";
-    char* needle = "findme";
+    char* needle = "Lorem";
     logfile *log;
     log = loadfile(filename);
 
